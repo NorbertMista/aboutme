@@ -1,21 +1,21 @@
-name: Deploy to VPS  # nazwa workflowa
+name: Deploy to VPS
 
 on:
-  push:               # co go uruchamia?
+  push:
     branches:
-      - main          # działa tylko po puszu na gałąź "main"
+      - main
 
 jobs:
-  deploy:             # nazwa zadania (może być dowolna)
-    runs-on: ubuntu-latest  # GitHub odpali to na maszynie z Ubuntu
+  deploy:
+    runs-on: ubuntu-latest
 
-    steps:            # lista kroków do wykonania
+    steps:
       - name: Connect to VPS and pull latest code
-        uses: appleboy/ssh-action@v1.0.0  # gotowa akcja do łączenia przez SSH
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ VPS_HOST }}       # IP Twojego serwera
-          username: ${{ VPS_USER }}   # użytkownik na VPS (np. "ubuntu")
-          key: ${{ VPS_SSH_KEY  }}         # klucz prywatny SSH
-          script: |                            # komendy, które wykona na VPS
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
             cd /var/www/mysite/aboutme
             git pull origin main
