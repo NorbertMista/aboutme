@@ -1,0 +1,70 @@
+name: Deploy to VPS  # nazwa workflowa
+
+on:
+  push:               # co go uruchamia?
+    branches:
+      - main          # działa tylko po puszu na gałąź "main"
+
+jobs:
+  deploy:             # nazwa zadania (może być dowolna)
+    runs-on: ubuntu-latest  # GitHub odpali to na maszynie z Ubuntu
+
+    steps:            # lista kroków do wykonania
+      - name: Connect to VPS and pull latest code
+        uses: appleboy/ssh-action@v1.0.0  # gotowa akcja do łączenia przez SSH
+        with:
+          host: ${{ 130.61.197.52 }}       # IP Twojego serwera
+          username: ${{ ubuntu }}   # użytkownik na VPS (np. "ubuntu")
+          key: ${{ -----BEGIN OPENSSH PRIVATE KEY-----
+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
+-----END OPENSSH PRIVATE KEY-----
+ }}         # klucz prywatny SSH
+          script: |                            # komendy, które wykona na VPS
+            cd /var/www/mysite/aboutme
+            git pull origin main
